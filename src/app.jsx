@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import VideoList from './components/videoList';
+import VideoList from './components/videoList/videoList';
+import './app.css';
 
 function App() {
   const [title, setTitle] = useState([]);
@@ -10,7 +11,7 @@ function App() {
       redirect: 'follow'
     };
     
-    fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&key=AIzaSyA2HgFe8-5As2Uz5b1yoI1hpGGOpsOY0sk", requestOptions)
+    fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&location=korea&key=AIzaSyA2HgFe8-5As2Uz5b1yoI1hpGGOpsOY0sk", requestOptions)
       .then(response => response.json())
       .then(result => setTitle(result.items))
       .catch(error => console.log('error', error));
