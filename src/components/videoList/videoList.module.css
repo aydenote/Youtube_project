@@ -4,3 +4,18 @@
   list-style: none;
   padding-left: 0;
 }
+
+.navbar {
+  color: white;
+  background-color: black;
+}
+
+.search_form {
+  display: inline-block;
+}
+.search_text {
+  margin: 5px;
+}
+svg {
+  font-size: 20px;
+}
