@@ -1,42 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import VideoList from './components/videoList/videoList';
-import './app.css';
+import styles from './app.module.css';
+import Search_header from './components/search_header/search_header';
 
-function App() {
+function App({youtube}) {
   const [title, setTitle] = useState([]);
-  
+
   useEffect(()=> { 
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
-    fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=25&location=korea&key=AIzaSyATcQur2qPzkLrqDQghP40GcxGL3Piu0Eg", requestOptions)
-      .then(response => response.json())
-      .then(result => setTitle(result.items))
-      .catch(error => console.log('error', error));
+    youtube.mostPopular()
+    .then(videos => setTitle(videos))
   },[]);
 
   const search = (text)=> {
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-    
-    
-    const search_text = text; 
+    youtube.search(text)
+    .then(videos => setTitle(videos))
+  };
 
-    // https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search_text}&key=AIzaSyATcQur2qPzkLrqDQghP40GcxGL3Piu0Eg
 
-    fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${search_text}}&key=AIzaSyATcQur2qPzkLrqDQghP40GcxGL3Piu0Eg`, requestOptions)
-      .then(response => response.json())
-      .then(result => setTitle(result.items))
-      .catch(error => console.log('error', error));
-  }  
-
- return <VideoList videos={title} videoSearch={search} />
-  
- 
+ return (
+ <div className={styles.app}>
+ <Search_header onSearch={search}/>
+ <VideoList videos={title} />
+  </div>
+ )
  }
 
 export default App;
