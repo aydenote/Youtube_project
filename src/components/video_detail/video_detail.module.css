@@ -1,0 +1,11 @@
+.detail {
+  padding: 0.2em;
+}
+
+.title {
+  outline-color: black;
+}
+
+.description {
+  white-space: pre-wrap;
+}
