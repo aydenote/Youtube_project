@@ -26,6 +26,7 @@ const SearchHeader = ({onSearch}) => {
                         <img className={styles.search}src="/images/search_icon.png" alt="search" />
                     </button>
                 </header>
+                
             )
             };
 

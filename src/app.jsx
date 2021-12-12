@@ -16,6 +16,7 @@ function App({youtube}) {
   const search = (text)=> {
     youtube.search(text)
     .then(videos => setTitle(videos))
+    .then(setSelectedVideo(null))
   };
 
   const selectVideo = (video) =>{
@@ -24,7 +25,7 @@ function App({youtube}) {
 
  return (
  <div className={styles.app}>
- <Search_header onSearch={search}/>
+ <Search_header onSearch={search} />
  <section className={styles.content}>
    {selectedVideo &&(
   <div className={styles.detail}>
