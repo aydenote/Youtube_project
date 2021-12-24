@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import VideoList from './components/videoList/videoList';
+import VideoList from './components/videoList/VideoList';
 import styles from './app.module.css';
-import Search_header from './components/search_header/search_header';
-import Video_detail from './components/video_detail/video_detail';
+import SearchHeader from './components/searchheader/SearchHeader';
+import VideoDetail from './components/videodetail/VideoDetail';
+import { useCallback } from 'react';
 
 function App({youtube}) {
   const [title, setTitle] = useState([]);
@@ -11,13 +12,13 @@ function App({youtube}) {
   useEffect(()=> { 
     youtube.mostPopular()
     .then(videos => setTitle(videos))
-  },[]);
+  },[youtube]);
 
-  const search = (text)=> {
+  const search = useCallback((text)=> {
     youtube.search(text)
     .then(videos => setTitle(videos))
     .then(setSelectedVideo(null))
-  };
+  },[youtube]);
 
   const selectVideo = (video) =>{
     setSelectedVideo(video)
@@ -25,11 +26,11 @@ function App({youtube}) {
 
  return (
  <div className={styles.app}>
- <Search_header onSearch={search} />
+ <SearchHeader onSearch={search} />
  <section className={styles.content}>
    {selectedVideo &&(
   <div className={styles.detail}>
-    <Video_detail video={selectedVideo}/>
+    <VideoDetail video={selectedVideo}/>
   </div>
    )}
  <div className={styles.list}>
